@@ -31,7 +31,7 @@ public class Database extends SQLiteOpenHelper{
 
     @Override
     public void onCreate (SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + " (Balance INTEGER, Current Balance INTEGER PRIMARY KEY AUTOINCREMENT, Period of time TEXT, weekly TEXT, monthly TEXT, Category TEXT, Rent TEXT, Food TEXT, Utilities TEXT, Enterteinment TEXT)");
+        db.execSQL("create table " + TABLE_NAME + " (Balance INTEGER, Current Balance INTEGER, Period of time TEXT, weekly TEXT, monthly TEXT, Category TEXT, Rent TEXT, Food TEXT, Utilities TEXT, Enterteinment TEXT)");
 
     }
 
