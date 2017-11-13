@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">My Application</string>
+
+    <string-array name = "periodspiner">
+        <item>weekly</item>
+        <item>monthly</item>
+    </string-array>
 </resources>
