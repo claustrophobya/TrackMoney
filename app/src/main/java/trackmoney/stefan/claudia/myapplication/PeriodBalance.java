@@ -1,12 +1,14 @@
 package trackmoney.stefan.claudia.myapplication;
 
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.content.Intent;
 import android.icu.text.IDNA;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,15 +20,17 @@ import android.widget.Toast;
 
 public class PeriodBalance extends AppCompatActivity {
     Database myDB;
+
     public Button Balance;
     public EditText iBalance;
     public Button CurrentBalance;
     public TextView currentb;
     public TextView PeriodTime;
     public Spinner periodspiner;
-    public Button Submitbutton;
+    public Button SUBMIT;
     public TextView weekly;
     public TextView monthly;
+
 
 
     @Override
@@ -39,24 +43,38 @@ public class PeriodBalance extends AppCompatActivity {
         iBalance = (EditText) findViewById(R.id.insertBalance);
         CurrentBalance = (Button) findViewById(R.id.CurrentBalance);
         currentb = (TextView) findViewById(R.id.currentb);
-        PeriodTime = (Button)findViewById(R.id.PeriodTime);
+        PeriodTime = (Button) findViewById(R.id.PeriodTime);
         periodspiner = (Spinner) findViewById(R.id.periodspiner);
-        Submitbutton = (Button) findViewById(R.id.Submitbutton);
+        SUBMIT = (Button) findViewById(R.id.Submitbutton);
         AddData();
+
+
 
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(PeriodBalance.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.periodspiner));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         periodspiner.setAdapter(myAdapter);
+
     }
 
-    public void AddData(){
-        Submitbutton.setOnClickListener(
-                new View.OnClickListener() {
+    /**public void buttonOnClick(View v){
+        Button SUBMIT = (Button) v;
+        startActivity(onNewIntent(getApplicationContext(), CurrentBalance.class));
+    }
+
+
+    private Intent onNewIntent(Context applicationContext, Class<CurrentBalance> currentBalanceClass) {
+    }
+*/
+
+    public void AddData() {
+        SUBMIT.setOnClickListener(
+                new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isInserted = myDB.insertData(iBalance.getText().toString(), PeriodTime.getText().toString(), weekly.getText().toString(), monthly.getText().toString() );
+                        startActivity(new Intent(PeriodBalance.this, CurrentBalance.class));
+                        boolean isInserted = myDB.insertData(iBalance.getText().toString(), PeriodTime.getText().toString(), weekly.getText().toString(), monthly.getText().toString());
 
-                        if (isInserted = true)
+                        if (isInserted)
                             Toast.makeText(PeriodBalance.this, "Data Inserted", Toast.LENGTH_LONG).show();
                         else
                             Toast.makeText(PeriodBalance.this, "Data NOT Inserted", Toast.LENGTH_LONG).show();
@@ -65,19 +83,4 @@ public class PeriodBalance extends AppCompatActivity {
         );
     }
 
-
-
-    //get the spinner from the xml.
-    // Spinner dropdown = (Spinner) findViewById(R.id.periodspiner);
-    //create a list of items for the spinner.
-   //  String[] items = new String[]{"weekly", "montly"};
-    //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-//There are multiple variations of this, but this is the basic variant.
-     // ArrayAdapter<String> Adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
-//set the spinners adapter to the previously created one.
-
-
 }
-
-
-

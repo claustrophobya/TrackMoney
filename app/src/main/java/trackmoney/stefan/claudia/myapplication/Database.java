@@ -1,9 +1,13 @@
 package trackmoney.stefan.claudia.myapplication;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import static trackmoney.stefan.claudia.myapplication.R.id.Category;
+import static trackmoney.stefan.claudia.myapplication.R.id.renti;
 
 /**
  * Created by Xibalba on 04-Nov-17.
@@ -32,7 +36,7 @@ public class Database extends SQLiteOpenHelper{
 
     @Override
     public void onCreate (SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + " (Balance INTEGER, Current Balance INTEGER, Period of time TEXT, weekly TEXT, monthly TEXT, Category TEXT, Rent TEXT, Food TEXT, Utilities TEXT, Enterteinment TEXT)");
+        db.execSQL("create table " + TABLE_NAME + " (Balance INTEGER, Current Balance INTEGER, Period of time TEXT, weekly TEXT, monthly TEXT,Category TEXT, Rent TEXT, Food TEXT, Utilities TEXT, Enterteinment TEXT)");
 
     }
 
@@ -49,6 +53,10 @@ public class Database extends SQLiteOpenHelper{
         contentValues.put(COL_3, PeriodTime);
         contentValues.put(COL_4, weekly);
         contentValues.put(COL_5, monthly);
+        //contentValues.put( COL_7 = Rent);
+        //contentValues.put( COL_8 = Food);
+       // contentValues.put( COL_9 = Utilities);
+        //contentValues.put( COL_10 = Enterteinment);
 
         long result = db.insert(TABLE_NAME,null, contentValues);
         if (result == -1)
@@ -57,16 +65,15 @@ public class Database extends SQLiteOpenHelper{
             return true;
 
         }
+
+        public Cursor getAllData(){
+            SQLiteDatabase db = this.getWritableDatabase();
+            Cursor res = db.rawQuery("select * from" + TABLE_NAME, null);
+            db.close();
+            return res;
+        }
+
     }
-          //  public static final String Balance = "Balance";
-            //public static final String Current_Balance = "Current Balance";
-          //  public static final String Period_of_time = "Period of time";
-         //   public static final String weekly = "weekly";
-         //   public static final String monthly = "monthly";
-          //  public static final String Category = "Category";
-         //   public static final String Rent = "Rent";
-        //    public static final String Food = "Food";
-         //   public static final String Utilities = "Utilities";
-        //    public static final String Enterteinment = "Enterteinment";
+
 
 
